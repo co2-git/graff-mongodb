@@ -5,7 +5,8 @@ import findMany from './findMany'
 import { InputProps, ResponseDocument } from '../types';
 
 const deleteMany = async (collection: Collection, params: InputProps): Promise<ResponseDocument[]> => {
-  const docs = await findMany(collection, params)
+  const docs = await findMany(collection, params.input)
+  console.log(docs)
   const ids = map(docs, 'id')
   console.log(ids)
   const objectIds = map(ids, ObjectID)
