@@ -1,0 +1,15 @@
+{
+  "name": "@francoisv/graff-mongodb",
+  "version": "1.0.27",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "mongodb": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.111",
+    "@types/mongodb": "^3.1.1",
+    "typescript": "^2.9.2"
+  }
+}
