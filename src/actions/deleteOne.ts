@@ -1,10 +1,11 @@
 import { Collection } from 'mongodb'
+import { Model, InputProps, ResponseDocument } from '@francoisv/graff-api/dist/types'
 
-import { InputProps, ResponseDocument } from '../types'
+import { parseValues } from '../helpers/parseValue'
 
-const deleteOne = async (collection: Collection, params: InputProps)
+const deleteOne = async (collection: Collection, params: InputProps, model: Model)
 : Promise<ResponseDocument | undefined> => {
-  const res = await collection.findOneAndDelete(params.input)
+  const res = await collection.findOneAndDelete(parseValues(params.input, model))
   if (!res.ok) {
     return undefined
   }

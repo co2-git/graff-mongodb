@@ -1,8 +1,11 @@
 import { Collection } from 'mongodb'
-import { InputsProps, ResponseDocument } from '../types';
+import { Model, InputsProps, ResponseDocument } from '@francoisv/graff-api/dist/types'
 
-const insertMany = async (collection: Collection, params: InputsProps): Promise<ResponseDocument[]> => {
-  const { ops } = await collection.insertMany(params.input)
+import { parseValues } from '../helpers/parseValue'
+
+const insertMany = async (collection: Collection, params: InputsProps, model: Model)
+: Promise<ResponseDocument[]> => {
+  const { ops } = await collection.insertMany(params.input.map(input => parseValues(input, model)))
   return ops
 }
 

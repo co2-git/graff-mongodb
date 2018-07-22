@@ -1,8 +1,11 @@
 import { Collection } from 'mongodb'
-import { InputProps, ResponseDocument } from '../types';
+import { Model, InputProps, ResponseDocument } from '@francoisv/graff-api/dist/types'
 
-const insertOne = async (collection: Collection, params: InputProps): Promise<ResponseDocument> => {
-  const { result, ops: [op] } = await collection.insertOne(params.input)
+import { parseValues } from '../helpers/parseValue'
+
+const insertOne = async (collection: Collection, params: InputProps, model: Model)
+: Promise<ResponseDocument> => {
+  const { result, ops: [op] } = await collection.insertOne(parseValues(params.input, model))
   if (result.n !== 1 ) {
     throw new Error('Can not insertOne')
   }

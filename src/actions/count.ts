@@ -1,7 +1,17 @@
 import { Collection } from 'mongodb'
+import { Model, InputProps, ProjectionProps } from '@francoisv/graff-api/dist/types'
 
-const count = async (collection: Collection, where: any = {}) => {
-  return await collection.count(where)
+import { parseValues } from '../helpers/parseValue'
+
+type Params = InputProps & ProjectionProps
+
+const defaultParams = {
+  input: {},
+  projection: {},
+}
+
+const count = async (collection: Collection, params: Params = defaultParams, model: Model) => {
+  return await collection.count(parseValues(params.input, model))
 }
 
 export default count

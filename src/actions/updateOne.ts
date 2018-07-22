@@ -1,10 +1,14 @@
 import { Collection } from 'mongodb'
+import { Model, InputProps, OutputProps, ResponseDocument } from '@francoisv/graff-api/dist/types'
 
-import { InputProps, OutputProps, ResponseDocument } from '../types'
+import { parseValues } from '../helpers/parseValue'
 
-const updateOne = async (collection: Collection, params: InputProps & OutputProps)
+const updateOne = async (collection: Collection, params: InputProps & OutputProps, model: Model)
 : Promise<ResponseDocument | undefined> => {
-  const res = await collection.findOneAndUpdate(params.input, { $set: params.output, upsert: false })
+  const res = await collection.findOneAndUpdate(
+    parseValues(params.input, model),
+    { $set: parseValues(params.output, model) }
+  )
   if (!res.ok) {
     return undefined
   }
