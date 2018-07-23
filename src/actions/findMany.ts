@@ -5,7 +5,6 @@ import { parseValues } from '../helpers/parseValue'
 const findMany = async (collection: Collection, params: InputProps & ProjectionProps, model: Model)
 : Promise<ResponseDocument[]> => {
   const parsedInput = parseValues(params.input || {}, model)
-  console.log('findMany', collection, params, model, parsedInput)
   const res = await collection.find(parsedInput)
   if (params.projection) {
     if (typeof params.projection.limit === 'number') {
