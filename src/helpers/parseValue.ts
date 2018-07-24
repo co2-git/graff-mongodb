@@ -1,10 +1,11 @@
 import { Param, Model } from '@francoisv/graff-api/dist/types'
 import { ObjectID } from 'mongodb'
+import stringify from 'json-stringify-safe'
 
 export const parseValue = (value: any, field: Param): any => {
   if (field.isArray) {
     if (!Array.isArray(value)) {
-      throw new Error(`Field ${ field.name } is expecting an array`)
+      throw new Error(`Field ${ field.name } is expecting an array, got ${ stringify(value, null, 2) }`)
     }
     return value.map(val => parseValue(val, field))
   }
