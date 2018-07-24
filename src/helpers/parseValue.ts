@@ -1,7 +1,13 @@
 import { Param, Model } from '@francoisv/graff-api/dist/types'
 import { ObjectID } from 'mongodb'
 
-export const parseValue = (value: any, field: Param) => {
+export const parseValue = (value: any, field: Param): any => {
+  if (field.isArray) {
+    if (!Array.isArray(value)) {
+      throw new Error(`Field ${ field.name } is expecting an array`)
+    }
+    return value.map(val => parseValue(val, field))
+  }
   switch (field.type) {
     case 'String':
     case 'Float':

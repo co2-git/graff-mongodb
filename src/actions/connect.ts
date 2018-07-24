@@ -37,7 +37,6 @@ const actions = {
 }
 
 const connect = async (url: string): Promise<Connector> => {
-  console.log('CONNECT')
   const client = await MongoClient.connect(url, { useNewUrlParser: true })
   return {
     actions: {
