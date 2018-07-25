@@ -5,7 +5,9 @@ import stringify from 'json-stringify-safe'
 export const parseValue = (value: any, field: Param, ignoreArray: boolean = false): any => {
   if (field.isArray && ignoreArray) {
     if (!Array.isArray(value)) {
-      throw new Error(`Field ${ field.name } is expecting an array, got ${ stringify(value, null, 2) }`)
+      throw new Error(
+        `Field ${ field.name } is expecting an array, got ${ stringify(value, null, 2) }`
+      )
     }
     return value.map(val => parseValue(val, field, true))
   }
@@ -25,7 +27,7 @@ interface Parsed {
   [field: string]: any
 }
 
-export const parseValues = (values: Parsed, model: Model): Parsed => {
+export const parseValues = (values: Parsed = {}, model: Model): Parsed => {
   const parsed: Parsed = {}
   for (const field of model.fields) {
     if (field.name in values) {
