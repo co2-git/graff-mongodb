@@ -11,9 +11,7 @@ const defaultParams = {
 }
 
 const count = async (collection: Collection, params: Params = defaultParams, model: Model) => {
-  const res = await collection.countDocuments(parseValues(params.input, model))
-  console.log({ count: res })
-  return res
+  return await collection.countDocuments(parseValues(params.input, model))
 }
 
 export default count
